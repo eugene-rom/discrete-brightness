@@ -1,0 +1,7 @@
+{
+    "name": "Discrete brightness",
+    "version": "0.1",
+    "description": "Discrete brightness indicator",
+    "uuid": "discrete-brightness@gs.eros2.info",
+    "shell-version": ["3.28.0"]
+}
