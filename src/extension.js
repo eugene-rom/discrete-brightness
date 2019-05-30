@@ -71,6 +71,7 @@ function _get_max_brightness()
 {
     let maxBr;
     try {
+        // does not work in 3.32
         let cmd = '/usr/lib/gnome-settings-daemon/gsd-backlight-helper --get-max-brightness';
         maxBr = parseInt( String( GLib.spawn_command_line_sync( cmd )[1] ) );
         if ( maxBr > NUM_MAX || isNaN( maxBr ) ) {
