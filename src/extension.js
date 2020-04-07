@@ -45,7 +45,7 @@ class DBrightness extends PanelMenu.Button
         }
 
         this._onVisibilityChanged = () => {
-            if ( this.menu.visible ) {
+            if ( this.menu.actor.visible ) {
                 let curBr = this._get_brightness();
 
                 for ( var i = 0; i < this._radioGroup.length; i++ ) {
@@ -64,7 +64,7 @@ class DBrightness extends PanelMenu.Button
             Main.panel.statusArea.aggregateMenu._brightness._proxy.Brightness = Math.round( num * this._prc_mult );
         };
 
-        this.menu.connect( 'notify::visible', this._onVisibilityChanged.bind(this) );
+        this.menu.actor.connect( 'notify::visible', this._onVisibilityChanged.bind(this) );
     }
 } );
 
