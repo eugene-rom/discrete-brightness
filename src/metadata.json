@@ -1,8 +1,8 @@
 {
     "name": "Discrete brightness",
-    "version": "0.2",
+    "version": 4,
     "description": "Discrete brightness indicator change brightness in discrete steps, unlike default smooth brightness bar in Gnome Shell",
     "url": "https://github.com/eugene-rom/discrete-brightness",
     "uuid": "discrete-brightness@gs.eros2.info",
-    "shell-version": ["3.26.0", "3.28.0", "3.32.0"]
+    "shell-version": ["3.36"]
 }
