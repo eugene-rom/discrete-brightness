@@ -1,8 +1,9 @@
 # Discrete brightness
 
 <a href="https://extensions.gnome.org/extension/1410/" >
-   <img src="/media/Gnome_logo.svg" width="180px"/>
+   <img src="/media/get-on-ego.svg" height="100px"/>
 </a>
+
 
 Gnome Shell extension to change brightness in discrete steps, unlike default smooth brightness bar in Gnome Shell
 
