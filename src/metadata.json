@@ -1,8 +1,8 @@
 {
     "name": "Discrete brightness",
-    "version": 7,
+    "version": 8,
     "description": "Discrete brightness indicator changes brightness in discrete steps, unlike default smooth brightness bar in Gnome Shell. Extension for notebooks/tablets only, default brightness bar must be present in Gnome Shell.",
     "url": "https://github.com/eugene-rom/discrete-brightness",
     "uuid": "discrete-brightness@gs.eros2.info",
-    "shell-version": ["3.36","3.38","40","41","42"]
+    "shell-version": ["43"]
 }

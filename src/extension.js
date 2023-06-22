@@ -56,12 +56,12 @@ class DBrightness extends PanelMenu.Button
         };
 
         this._get_brightness = () => {
-            let curBrPercent = Main.panel.statusArea.aggregateMenu._brightness._proxy.Brightness;
+            let curBrPercent = Main.panel.statusArea.quickSettings._brightness.quickSettingsItems[0]._proxy.Brightness;
             return Math.round( curBrPercent / this._prc_mult );
         };
 
         this._set_brightness = ( num ) => {
-            Main.panel.statusArea.aggregateMenu._brightness._proxy.Brightness = Math.round( num * this._prc_mult );
+            Main.panel.statusArea.quickSettings._brightness.quickSettingsItems[0]._proxy.Brightness = Math.round( num * this._prc_mult );
         };
 
         this.menu.actor.connect( 'notify::visible', this._onVisibilityChanged.bind(this) );
