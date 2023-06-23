@@ -75,4 +75,5 @@ function enable() {
 
 function disable() {
     dbrightness.destroy();
+    dbrightness = null;
 }
