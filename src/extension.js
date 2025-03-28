@@ -1,22 +1,26 @@
 /* global imports */
 
-const { GLib, GObject, St } = imports.gi;
-const Main = imports.ui.main;
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
+import GObject from 'gi://GObject'
+import St from 'gi://St'
+
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 const NUM_MAX      = 15;
 const TEXT_DBRGHNS = 'Discrete brightness';
 const TEXT_LOGID   = 'discrete-brightness';
 
-let dbrightness;
-
-let DBrightness = GObject.registerClass(
-class DBrightness extends PanelMenu.Button
+class DBrightnessBtn extends PanelMenu.Button
 {
-    _init()
+    static {
+        GObject.registerClass(this);
+    }
+
+    constructor()
     {
-        super._init( 0.0, TEXT_DBRGHNS );
+        super( 0.0, TEXT_DBRGHNS );
 
         this._max_br   = NUM_MAX;
         this._prc_mult = 100 / this._max_br;
@@ -44,36 +48,39 @@ class DBrightness extends PanelMenu.Button
             this.menu.addMenuItem( item );
         }
 
-        this._onVisibilityChanged = () => {
-            if ( this.menu.actor.visible ) {
-                let curBr = this._get_brightness();
-
-                for ( var i = 0; i < this._radioGroup.length; i++ ) {
-                    let b = ( parseInt( this._radioGroup[i].label.get_text() ) === curBr );
-                    this._radioGroup[i].setOrnament( b ? PopupMenu.Ornament.DOT : PopupMenu.Ornament.NONE );
-                }
-            }
-        };
-
-        this._get_brightness = () => {
-            let curBrPercent = Main.panel.statusArea.quickSettings._brightness.quickSettingsItems[0]._proxy.Brightness;
-            return Math.round( curBrPercent / this._prc_mult );
-        };
-
-        this._set_brightness = ( num ) => {
-            Main.panel.statusArea.quickSettings._brightness.quickSettingsItems[0]._proxy.Brightness = Math.round( num * this._prc_mult );
-        };
-
         this.menu.actor.connect( 'notify::visible', this._onVisibilityChanged.bind(this) );
     }
-} );
 
-function enable() {
-    dbrightness = new DBrightness;
-    Main.panel.addToStatusArea( TEXT_DBRGHNS, dbrightness );
+    _onVisibilityChanged() {
+        if ( this.menu.actor.visible ) {
+            let curBr = this._get_brightness();
+
+            for ( var i = 0; i < this._radioGroup.length; i++ ) {
+                let b = ( parseInt( this._radioGroup[i].label.get_text() ) === curBr );
+                this._radioGroup[i].setOrnament( b ? PopupMenu.Ornament.DOT : PopupMenu.Ornament.NONE );
+            }
+        }
+    };
+
+    _get_brightness() {
+        let curBrPercent = Main.panel.statusArea.quickSettings._backlight.quickSettingsItems[0]._proxy.Brightness;
+        return Math.round( curBrPercent / this._prc_mult );
+    };
+
+    _set_brightness( num ) {
+        Main.panel.statusArea.quickSettings._backlight.quickSettingsItems[0]._proxy.Brightness = Math.round( num * this._prc_mult );
+    };
 }
 
-function disable() {
-    dbrightness.destroy();
-    dbrightness = null;
+export default class DBrightness extends Extension
+{
+    enable() {
+        this._theext = new DBrightnessBtn();
+        Main.panel.addToStatusArea( TEXT_DBRGHNS, this._theext );
+    }
+
+    disable() {
+        this._theext.destroy();
+        this._theext = null;
+    }
 }
