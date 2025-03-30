@@ -37,13 +37,13 @@ class DBrightnessBtn extends PanelMenu.Button
             this._radioGroup.push(item);
             item.radioGroup = this._radioGroup;
             item.setOrnament( PopupMenu.Ornament.NONE );
-            item.connect('activate', () => {
+            item.connect( 'activate', () => {
                 let group = item.radioGroup;
                 for ( let i = 0; i < group.length; i++ ) {
                     group[i].setOrnament( (group[i] === item) ? PopupMenu.Ornament.DOT : PopupMenu.Ornament.NONE );
                 }
                 this._set_brightness( item.label.get_text() );
-            });
+            } );
 
             this.menu.addMenuItem( item );
         }
@@ -63,12 +63,12 @@ class DBrightnessBtn extends PanelMenu.Button
     };
 
     _get_brightness() {
-        let curBrPercent = Main.panel.statusArea.quickSettings._backlight.quickSettingsItems[0]._proxy.Brightness;
+        let curBrPercent = Main.panel.statusArea.quickSettings._brightness.quickSettingsItems[0]._proxy.Brightness;
         return Math.round( curBrPercent / this._prc_mult );
     };
 
     _set_brightness( num ) {
-        Main.panel.statusArea.quickSettings._backlight.quickSettingsItems[0]._proxy.Brightness = Math.round( num * this._prc_mult );
+        Main.panel.statusArea.quickSettings._brightness.quickSettingsItems[0]._proxy.Brightness = Math.round( num * this._prc_mult );
     };
 }
 
